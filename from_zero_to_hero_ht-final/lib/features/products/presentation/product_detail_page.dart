@@ -1,75 +1,61 @@
 import 'package:flutter/material.dart';
-
+ 
 import '../domain/product.dart';
-
+ 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({super.key, required this.product});
-
+ 
   final Product product;
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Product Detatil')),
-      body: SingleChildScrollView(
+      appBar: AppBar(
+        title: const Text(
+          'Product Detail',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color.fromARGB(255, 98, 90, 90),
+      ),
+ 
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: PageView(
-                children:
-                    product.images
-                        .map((e) => Image.network(e, fit: BoxFit.cover))
-                        .toList(),
+            Center(
+              child: Text(
+                product.title,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    product.title,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    product.brand ?? '',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.category),
-                  title: const Text('Categoria'),
-                  subtitle: Text(
-                    product.category.replaceAll('_', ' ').toUpperCase(),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.description),
-                  title: const Text('Descrição'),
-                  subtitle: Text(product.description),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.price_change),
-                  title: const Text('Preço'),
-                  subtitle: Text('${product.price}'),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.rate_review),
-                  title: const Text('Avaliação'),
-                  subtitle: Text(product.rating.toStringAsFixed(2)),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.production_quantity_limits),
-                  title: const Text('Estoque'),
-                  subtitle: Text(product.stock.toStringAsFixed(0)),
-                ),
-              ],
+ 
+            const SizedBox(height: 10),
+            Text(
+              'Marca: ${product.brand ?? 'Desconhecida'}',
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              product.description,
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Categoria: ${product.category}',
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Preço: R\$ ${product.price.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 83, 230, 87),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
